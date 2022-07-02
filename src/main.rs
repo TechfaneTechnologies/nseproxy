@@ -18,7 +18,7 @@ async fn main() {
                     .max_connections(10)
                     .max_connections_per_host(10)
                     .connection_cache_size(10)
-                    .tcp_keepalive(Duration::from_secs(10))
+                    .tcp_keepalive(Duration::from_secs(30))
                     .dns_cache(DnsCache::Forever)
                     //.dns_resolve(ResolveMap::new()
                     // Send requests for example.org on port 80 to 127.0.0.1.
@@ -56,8 +56,8 @@ async fn handler(
     // Extension(uri): Extension<&str>,
     Extension(http_client): Extension<HttpClient>,
 ) -> Result<String, StatusCode> {
-    // println!("{:?}", url);
-    // println!("{:?}", query);
+    println!("{:?}", url);
+    println!("{:?}", query);
     // let uri = uri.parse::<Uri>().unwrap();
     let mut nse_base_url = String::from("https://www.nseindia.com/");
     let _ = http_client
