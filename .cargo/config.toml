@@ -1,0 +1,10 @@
+[profile.release]
+opt-level = "z"
+strip = "symbols"
+lto = "fat"
+
+# [build]
+# target = "x86_64-unknown-linux-musl"
+
+[target.'cfg(target_os = "linux")']
+rustflags = ["-C", "linker=ld.lld", "-C", "relocation-model=static", "-C", "strip=symbols"]
