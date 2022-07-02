@@ -14,6 +14,7 @@ RUN rm ./target/release/deps/nseproxy*
 RUN cargo build --release
 
 FROM debian:buster-slim
+RUN apt-get update && apt-get install -y libgssapi-krb5-2
 COPY --from=build /nseproxy/target/release/nseproxy .
 
 CMD ["./nseproxy"]
