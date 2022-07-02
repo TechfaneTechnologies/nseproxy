@@ -1,0 +1,8 @@
+[profile.release]
+opt-level = "z"
+strip = "symbols"
+lto = "fat"
+incremental = false
+
+[unstable]
+sparse-registry = true

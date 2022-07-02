@@ -1,0 +1,98 @@
+[package]
+name = "nseproxy"
+version = "0.1.0"
+edition = "2021"
+authors = ["DrJuneMoone <moonedrjune@gmail.com>"]
+description = "NseProxy is a rust proxy server for extracting data from National Stock Exchange (India)"
+exclude = ["tests"]
+repository = "https://github.com/TechfaneTechnologies/nseproxy"
+categories = ["command-line-utilities"]
+readme = "README.md"
+license = "MIT"
+keywords = ["nse", "trading", "investing", "stock-market", "algotrading"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum = { version = "0.5.10", features = [
+    "headers",
+    "base64",
+    "http2",
+    "multer",
+    "sha-1",
+    "ws",
+    "multipart",
+] }
+tokio = { version = "1.19.2", features = ["full"] }
+isahc = { version = "1.7.2", features = [
+    "nightly",
+    "psl",
+    "cookies",
+    "http2",
+    "json",
+    "spnego",
+    "static-curl",
+    "text-decoding",
+    "unstable-interceptors",
+] }
+# serde_json = { version = "1.0.82", features = [
+#     "raw_value",
+#     "alloc",
+#     "arbitrary_precision",
+#     "float_roundtrip",
+#     "indexmap",
+#     "preserve_order",
+#     "unbounded_depth",
+# ] }
+# futures = { version = "0.3.21" }
+# reqwest = { version = "0.11.11", features = [
+#     "json",
+#     "__rustls",
+#     "async-compression",
+#     "blocking",
+#     "brotli",
+#     "cookie_crate",
+#     "cookie_store",
+#     "cookies",
+#     "deflate",
+#     "gzip",
+#     "hyper-rustls",
+#     "mime_guess",
+#     "multipart",
+#     "proc-macro-hack",
+#     "rustls",
+#     "rustls-native-certs",
+#     "rustls-pemfile",
+#     "rustls-tls",
+#     "rustls-tls-manual-roots",
+#     "rustls-tls-native-roots",
+#     "rustls-tls-webpki-roots",
+#     "socks",
+#     "stream",
+#     "tokio-rustls",
+#     "tokio-socks",
+#     "tokio-util",
+#     "trust-dns",
+#     "trust-dns-resolver",
+#     "webpki-roots",
+# ] }
+# serde = { version = "1.0.138", features = [
+#     "derive",
+#     "alloc",
+#     "rc",
+#     "unstable",
+# ] }
+# rayon = "1.5.3"
+# rand = { version = "0.8.5", features = [
+#     "nightly",
+#     "serde",
+#     "serde1",
+#     "small_rng",
+#     "log",
+#     "min_const_gen",
+# ] }
+# chrono = { version = "0.4.19", features = ["serde"] }
+# serde_urlencoded = "0.7.1"
+# csv = "1.1.6"
+# env_logger = "0.9.0"
+# matchit = "0.6.0"
