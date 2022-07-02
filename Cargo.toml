@@ -25,7 +25,7 @@ axum = { version = "0.5.10", features = [
 ] }
 tokio = { version = "1.19.2", features = ["full"] }
 isahc = { version = "1.7.2", features = [
-    "nightly",
+    # "nightly",
     "psl",
     "cookies",
     "http2",
@@ -33,7 +33,7 @@ isahc = { version = "1.7.2", features = [
     "spnego",
     "static-curl",
     "text-decoding",
-    "unstable-interceptors",
+    # "unstable-interceptors",
 ] }
 # serde_json = { version = "1.0.82", features = [
 #     "raw_value",
