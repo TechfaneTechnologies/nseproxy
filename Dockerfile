@@ -1,4 +1,4 @@
-FROM rust:1.64 as build
+FROM rust:1.62 as build
 
 RUN USER=root cargo new --bin nseproxy
 WORKDIR /nseproxy
