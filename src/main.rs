@@ -23,7 +23,7 @@ async fn main() {
                     .max_connections(10)
                     .max_connections_per_host(10)
                     .connection_cache_size(10)
-                    .tcp_keepalive(Duration::from_secs(30))
+                    .tcp_keepalive(Duration::from_secs(60))
                     .dns_cache(DnsCache::Forever)
                     //.dns_resolve(ResolveMap::new()
                     // Send requests for example.org on port 80 to 127.0.0.1.
@@ -31,7 +31,10 @@ async fn main() {
                     .version_negotiation(VersionNegotiation::http2())
                     .cookies()
                     .redirect_policy(RedirectPolicy::Follow)
+                    .connect_timeout(Duration::from_secs(60))
                     .timeout(Duration::from_secs(60))
+                    .auto_referer()
+                    .automatic_decompression(true)
                     .build()
                     .unwrap();
 
@@ -69,21 +72,21 @@ async fn handler(
     let _ = http_client
         .get_async(&nse_base_url)
         .await
-        .map_err(|_| (StatusCode::BAD_REQUEST, format!("Fetching {:?} hasn't worked...", &nse_base_url)).into_response()).unwrap();
+        .map_err(|_| (StatusCode::BAD_REQUEST, format!("Fetching {:?} hasn't worked...", &nse_base_url)).into_response());
     nse_base_url.push_str(&url);
     if query.is_some() {
     nse_base_url.push_str("?");
     nse_base_url.push_str(&query.as_ref().unwrap());
     }
-    let mut response = http_client
+    let response = http_client
         .get_async(nse_base_url)
         .await
-        .map_err(|_| (StatusCode::GATEWAY_TIMEOUT, format!("Fetching {:?} hasn't worked...", &query.unwrap())).into_response()).unwrap();
+        .map_err(|_| (StatusCode::GATEWAY_TIMEOUT, format!("Fetching {:?} hasn't worked...", &query.unwrap())).into_response());
 
-    let body = response
+    let body = response.expect("Fetching hasn't worked...")
         .text()
         .await
-        .map_err(|_| (StatusCode::NO_CONTENT, "Fetching text hasn't worked...").into_response()).unwrap();
+        .map_err(|_| (StatusCode::NO_CONTENT, "Fetching text hasn't worked...").into_response());
 
     body.into_response()
 }
