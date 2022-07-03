@@ -28,7 +28,7 @@ async fn main() {
                     //.dns_resolve(ResolveMap::new()
                     // Send requests for example.org on port 80 to 127.0.0.1.
                     //.add("www.example.org", 8080, [127, 0, 0, 1]))
-                    .version_negotiation(VersionNegotiation::http2())
+                    .version_negotiation(VersionNegotiation::latest_compatible())
                     .cookies()
                     .redirect_policy(RedirectPolicy::Follow)
                     .connect_timeout(Duration::from_secs(60))
