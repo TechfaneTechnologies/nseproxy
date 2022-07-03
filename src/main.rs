@@ -64,7 +64,7 @@ async fn handler(
     RawQuery(query): RawQuery,
     // Extension(uri): Extension<&str>,
     Extension(http_client): Extension<HttpClient>,
-) -> Response {
+) -> Result<Response, Response> {
     // println!("{:?}", url);
     // println!("{:?}", query);
     // let uri = uri.parse::<Uri>().unwrap();
@@ -72,22 +72,22 @@ async fn handler(
     let _ = http_client
         .get_async(&nse_base_url)
         .await
-        .map_err(|_| (StatusCode::BAD_REQUEST, format!("Fetching {:?} hasn't worked...", &nse_base_url)).into_response());
+        .map_err(|_| (StatusCode::BAD_REQUEST, format!("Fetching {:?} hasn't worked...", &nse_base_url)).into_response())?;
     nse_base_url.push_str(&url);
     if query.is_some() {
     nse_base_url.push_str("?");
-    nse_base_url.push_str(&query.as_ref().unwrap());
+    nse_base_url.push_str(&query.unwrap());
     }
-    let response = http_client
+    let mut response = http_client
         .get_async(nse_base_url)
         .await
-        .map_err(|_| (StatusCode::GATEWAY_TIMEOUT, "Fetching hasn't worked...").into_response());
+        .map_err(|_| (StatusCode::GATEWAY_TIMEOUT, "Fetching hasn't worked...").into_response())?;
 
-    let body = response.expect("Fetching hasn't worked...")
+    let body = response
         .text()
         .await
-        .map_err(|_| (StatusCode::NO_CONTENT, "Fetching text hasn't worked...").into_response());
+        .map_err(|_| (StatusCode::NO_CONTENT, "Fetching text hasn't worked...").into_response())?;
 
-    body.into_response()
+    Ok(body.into_response())
 }
 
