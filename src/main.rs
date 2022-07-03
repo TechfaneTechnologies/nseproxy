@@ -26,6 +26,7 @@ async fn main() {
                     .version_negotiation(VersionNegotiation::http2())
                     .cookies()
                     .redirect_policy(RedirectPolicy::Follow)
+                    .timeout(Duration::from_secs(60))
                     .build()
                     .unwrap();
 
@@ -56,8 +57,8 @@ async fn handler(
     // Extension(uri): Extension<&str>,
     Extension(http_client): Extension<HttpClient>,
 ) -> Result<String, StatusCode> {
-    println!("{:?}", url);
-    println!("{:?}", query);
+    // println!("{:?}", url);
+    // println!("{:?}", query);
     // let uri = uri.parse::<Uri>().unwrap();
     let mut nse_base_url = String::from("https://www.nseindia.com/");
     let _ = http_client
