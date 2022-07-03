@@ -2,7 +2,7 @@
 Nseproxy is a rust proxy server for extracting data from National Stock Exchange (India)
 
 ## Installation
-Download the [nseproxy.exe](https://github.com/TechfaneTechnologies/nseproxy/release/latest/download/nseproxy.exe) from release section
+Download the [nseproxy.exe](https://github.com/TechfaneTechnologies/nseproxy/releases/latest/download/nseproxy.exe) from release section
 
 or install it with rust via `cargo install --git https://github.com/TechfaneTechnologies/nseproxy` 
 
