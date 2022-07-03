@@ -81,7 +81,7 @@ async fn handler(
     let response = http_client
         .get_async(nse_base_url)
         .await
-        .map_err(|_| (StatusCode::GATEWAY_TIMEOUT, format!("Fetching {:?} hasn't worked...", &query.unwrap())).into_response());
+        .map_err(|_| (StatusCode::GATEWAY_TIMEOUT, "Fetching hasn't worked...").into_response());
 
     let body = response.expect("Fetching hasn't worked...")
         .text()
