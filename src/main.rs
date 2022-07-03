@@ -1,7 +1,12 @@
 use std::{net::SocketAddr, time::Duration};
 
 use axum::{
-    extract::{Extension, Path, RawQuery}, http::StatusCode, Router, Extension as AddExtensionLayer, routing::get,
+    extract::{Extension, Path, RawQuery},
+    http::StatusCode,
+    Router,
+    Extension as AddExtensionLayer,
+    routing::get,
+    response::{IntoResponse, Response},
 };
 use isahc::{
     config::{DnsCache, RedirectPolicy, VersionNegotiation},
@@ -56,7 +61,7 @@ async fn handler(
     RawQuery(query): RawQuery,
     // Extension(uri): Extension<&str>,
     Extension(http_client): Extension<HttpClient>,
-) -> Result<String, StatusCode> {
+) -> Response {
     // println!("{:?}", url);
     // println!("{:?}", query);
     // let uri = uri.parse::<Uri>().unwrap();
@@ -64,22 +69,22 @@ async fn handler(
     let _ = http_client
         .get_async(&nse_base_url)
         .await
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+        .map_err(|_| (StatusCode::BAD_REQUEST, format!("Fetching {:?} hasn't worked...", &nse_base_url)).into_response()).unwrap();
     nse_base_url.push_str(&url);
     if query.is_some() {
     nse_base_url.push_str("?");
-    nse_base_url.push_str(&query.unwrap());
+    nse_base_url.push_str(&query.as_ref().unwrap());
     }
     let mut response = http_client
         .get_async(nse_base_url)
         .await
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+        .map_err(|_| (StatusCode::GATEWAY_TIMEOUT, format!("Fetching {:?} hasn't worked...", &query.unwrap())).into_response()).unwrap();
 
     let body = response
         .text()
         .await
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+        .map_err(|_| (StatusCode::NO_CONTENT, "Fetching text hasn't worked...").into_response()).unwrap();
 
-    Ok(body)
+    body.into_response()
 }
 

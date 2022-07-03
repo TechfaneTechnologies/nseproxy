@@ -35,6 +35,7 @@ isahc = { version = "1.7.2", features = [
     "text-decoding",
     # "unstable-interceptors",
 ] }
+# http = "0.2.8"
 # serde_json = { version = "1.0.82", features = [
 #     "raw_value",
 #     "alloc",
