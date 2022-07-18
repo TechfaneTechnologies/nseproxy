@@ -23,7 +23,7 @@ axum = { version = "0.5.11", features = [
     "ws",
     "multipart",
 ] }
-tokio = { version = "1.19.2", features = ["full"] }
+tokio = { version = "1.20.0", features = ["full"] }
 isahc = { version = "1.7.2", features = [
     # "nightly",
     "psl",
