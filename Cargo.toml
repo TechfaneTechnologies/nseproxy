@@ -14,7 +14,7 @@ keywords = ["nse", "trading", "investing", "stock-market", "algotrading"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-axum = { version = "0.5.13", features = [
+axum = { version = "0.5.15", features = [
     "headers",
     "base64",
     "http2",
